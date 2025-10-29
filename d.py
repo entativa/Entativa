@@ -469,7 +469,9 @@ class KeychainManager {
 """
 
 def create_file(path, content):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
+    dirpath = os.path.dirname(path)
+    if dirpath:
+        os.makedirs(dirpath, exist_ok=True)
     with open(path, 'w') as f:
         f.write(content.strip() + '\n')
 

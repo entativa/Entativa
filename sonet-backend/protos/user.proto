@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package user;
+
+service UserService {
+  rpc GetUser(GetUserRequest) returns (UserResponse);
+  rpc UpdateProfile(UpdateProfileRequest) returns (UserResponse);
+  rpc FollowUser(FollowRequest) returns (FollowResponse);
+  rpc UnfollowUser(FollowRequest) returns (FollowResponse);
+}
+
+message GetUserRequest {
+  string user_id = 1;
+}
+
+message UserResponse {
+  string id = 1;
+  string username = 2;
+  string avatar_url = 3;
+  string todays_mood = 4;
+  int32 follower_count = 5;
+  int32 following_count = 6;
+}
+
+message UpdateProfileRequest {
+  string user_id = 1;
+  optional string username = 2;
+  optional string avatar_url = 3;
+  optional string todays_mood = 4;
+}
+
+message FollowRequest {
+  string user_id = 1;
+  string target_user_id = 2;
+}
+
+message FollowResponse {
+  bool success = 1;
+}

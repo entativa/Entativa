@@ -475,9 +475,11 @@ spec:
 """
 
 def create_file(path, content):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, 'w') as f:
-        f.write(content.strip() + '\n')
+  dirpath = os.path.dirname(path)
+  if dirpath:
+    os.makedirs(dirpath, exist_ok=True)
+  with open(path, 'w') as f:
+    f.write(content.strip() + '\n')
 
 def create_dir(path):
     os.makedirs(path, exist_ok=True)

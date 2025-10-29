@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package boo;
+
+service BooService {
+  rpc CreateBoo(CreateBooRequest) returns (BooResponse);
+  rpc GetBoo(GetBooRequest) returns (BooResponse);
+  rpc DeleteBoo(DeleteBooRequest) returns (DeleteBooResponse);
+  rpc ArchiveBoo(ArchiveRequest) returns (ArchiveResponse);
+}
+
+message CreateBooRequest {
+  string user_id = 1;
+  string content = 2;
+  repeated string media_urls = 3;
+}
+
+message BooResponse {
+  string id = 1;
+  string user_id = 2;
+  string content = 3;
+  repeated string media_urls = 4;
+  int64 created_at = 5;
+  int64 expires_at = 6;
+  string lifecycle = 7;
+  int32 fire_count = 8;
+  int32 reply_count = 9;
+}
+
+message GetBooRequest {
+  string boo_id = 1;
+}
+
+message DeleteBooRequest {
+  string boo_id = 1;
+}
+
+message DeleteBooResponse {
+  bool success = 1;
+}
+
+message ArchiveRequest {
+  string boo_id = 1;
+}
+
+message ArchiveResponse {
+  bool success = 1;
+}

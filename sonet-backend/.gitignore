@@ -1,0 +1,5 @@
+target/
+.build/
+*.swp
+.DS_Store
+shared/proto-gen/

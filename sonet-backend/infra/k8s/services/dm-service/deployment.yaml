@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dm-service
+  namespace: sonet
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dm-service
+  template:
+    metadata:
+      labels:
+        app: dm-service
+    spec:
+      containers:
+      - name: dm-service
+        image: sonet/dm-service:latest
+        ports:
+        - containerPort: 8083
+        env:
+        - name: ENV
+          value: "production"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dm-service
+  namespace: sonet
+spec:
+  selector:
+    app: dm-service
+  ports:
+  - port: 8083
+    targetPort: 8083

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost-reaper
+  namespace: sonet
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ghost-reaper
+  template:
+    metadata:
+      labels:
+        app: ghost-reaper
+    spec:
+      containers:
+      - name: ghost-reaper
+        image: sonet/ghost-reaper:latest
+        ports:
+        - containerPort: 50054
+        env:
+        - name: ENV
+          value: "production"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ghost-reaper
+  namespace: sonet
+spec:
+  selector:
+    app: ghost-reaper
+  ports:
+  - port: 50054
+    targetPort: 50054

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boo-service
+  namespace: sonet
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: boo-service
+  template:
+    metadata:
+      labels:
+        app: boo-service
+    spec:
+      containers:
+      - name: boo-service
+        image: sonet/boo-service:latest
+        ports:
+        - containerPort: 8082
+        env:
+        - name: ENV
+          value: "production"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: boo-service
+  namespace: sonet
+spec:
+  selector:
+    app: boo-service
+  ports:
+  - port: 8082
+    targetPort: 8082

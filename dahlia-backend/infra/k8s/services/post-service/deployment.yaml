@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-service
+  namespace: dahlia
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: post-service
+  template:
+    metadata:
+      labels:
+        app: post-service
+    spec:
+      containers:
+      - name: post-service
+        image: dahlia/post-service:latest
+        ports:
+        - containerPort: 8083
+        env:
+        - name: ENV
+          value: "production"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-service
+  namespace: dahlia
+spec:
+  selector:
+    app: post-service
+  ports:
+  - port: 8083
+    targetPort: 8083

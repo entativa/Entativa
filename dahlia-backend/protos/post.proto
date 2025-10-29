@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package post;
+
+service PostService {
+  rpc CreatePost(CreatePostRequest) returns (PostResponse);
+  rpc GetPost(GetPostRequest) returns (PostResponse);
+  rpc DeletePost(DeletePostRequest) returns (DeletePostResponse);
+  rpc LikePost(LikeRequest) returns (LikeResponse);
+  rpc UnlikePost(LikeRequest) returns (LikeResponse);
+}
+
+message CreatePostRequest {
+  string user_id = 1;
+  string image_url = 2;
+  string caption = 3;
+  optional string location = 4;
+}
+
+message PostResponse {
+  string id = 1;
+  string user_id = 2;
+  string image_url = 3;
+  string caption = 4;
+  optional string location = 5;
+  int64 created_at = 6;
+  int32 like_count = 7;
+  int32 comment_count = 8;
+}
+
+message GetPostRequest {
+  string post_id = 1;
+}
+
+message DeletePostRequest {
+  string post_id = 1;
+}
+
+message DeletePostResponse {
+  bool success = 1;
+}
+
+message LikeRequest {
+  string post_id = 1;
+  string user_id = 2;
+}
+
+message LikeResponse {
+  bool success = 1;
+}

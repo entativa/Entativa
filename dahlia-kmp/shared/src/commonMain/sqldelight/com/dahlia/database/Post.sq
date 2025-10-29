@@ -1,0 +1,15 @@
+CREATE TABLE PostEntity (
+    id TEXT PRIMARY KEY NOT NULL,
+    userId TEXT NOT NULL,
+    username TEXT NOT NULL,
+    imageUrl TEXT NOT NULL,
+    caption TEXT NOT NULL,
+    createdAt INTEGER NOT NULL,
+    likeCount INTEGER NOT NULL DEFAULT 0,
+    commentCount INTEGER NOT NULL DEFAULT 0
+);
+
+selectAll: SELECT * FROM PostEntity ORDER BY createdAt DESC;
+selectById: SELECT * FROM PostEntity WHERE id = ?;
+insert: INSERT OR REPLACE INTO PostEntity VALUES ?;
+deleteById: DELETE FROM PostEntity WHERE id = ?;

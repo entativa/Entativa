@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "feed-service",
+    "media-service",
+    "metrics-service",
+    "ghost-reaper"
+]
+resolver = "2"

@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  scylla:
+    image: scylladb/scylla:5.2
+    ports:
+      - "9042:9042"
+    volumes:
+      - scylla-data:/var/lib/scylla
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: sonet
+      POSTGRES_USER: sonet
+      POSTGRES_PASSWORD: dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  nats:
+    image: nats:2.10
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.5
+    ports:
+      - "7700:7700"
+    environment:
+      MEILI_MASTER_KEY: dev_master_key
+    volumes:
+      - meilisearch-data:/meili_data
+
+volumes:
+  scylla-data:
+  postgres-data:
+  redis-data:
+  meilisearch-data:

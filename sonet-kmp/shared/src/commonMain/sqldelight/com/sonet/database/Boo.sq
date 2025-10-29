@@ -1,0 +1,10 @@
+CREATE TABLE BooEntity (
+    id TEXT PRIMARY KEY NOT NULL,
+    userId TEXT NOT NULL,
+    content TEXT NOT NULL,
+    createdAt INTEGER NOT NULL
+);
+
+selectAll: SELECT * FROM BooEntity;
+selectById: SELECT * FROM BooEntity WHERE id = ?;
+insert: INSERT OR REPLACE INTO BooEntity VALUES ?;

@@ -1,0 +1,8 @@
+*.pyc
+__pycache__/
+.gradle/
+build/
+target/
+.idea/
+*.iml
+shared/proto-gen/

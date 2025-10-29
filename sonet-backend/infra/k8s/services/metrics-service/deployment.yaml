@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metrics-service
+  namespace: sonet
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: metrics-service
+  template:
+    metadata:
+      labels:
+        app: metrics-service
+    spec:
+      containers:
+      - name: metrics-service
+        image: sonet/metrics-service:latest
+        ports:
+        - containerPort: 50053
+        env:
+        - name: ENV
+          value: "production"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: metrics-service
+  namespace: sonet
+spec:
+  selector:
+    app: metrics-service
+  ports:
+  - port: 50053
+    targetPort: 50053

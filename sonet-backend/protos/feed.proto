@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package feed;
+
+service FeedService {
+  rpc GetFeed(GetFeedRequest) returns (FeedResponse);
+  rpc RefreshFeed(RefreshFeedRequest) returns (FeedResponse);
+}
+
+message GetFeedRequest {
+  string user_id = 1;
+  int32 limit = 2;
+  optional string cursor = 3;
+}
+
+message FeedResponse {
+  repeated FeedItem items = 1;
+  optional string next_cursor = 2;
+}
+
+message FeedItem {
+  string boo_id = 1;
+  string user_id = 2;
+  string username = 3;
+  string content = 4;
+  int64 created_at = 5;
+  int64 expires_at = 6;
+}
+
+message RefreshFeedRequest {
+  string user_id = 1;
+}
